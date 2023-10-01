@@ -35,8 +35,8 @@
         <% end %>
       </td>
       <td>
-        <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
-      <%= link_to message_path(user.id),class: 'btn btn-success' do %>
+        <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
+      <%= link_to message_path(@user.id),class: 'btn btn-success' do %>
         <i class="far fa-comments"></i>
       <% end %>
       <% end %>

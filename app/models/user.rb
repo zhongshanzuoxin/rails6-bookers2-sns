@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :following_users, through: :followers, source: :followed
   has_many :follower_users, through: :followeds, source: :follower
 
+  has_many :view_counts, dependent: :destroy
+
 def follow(user_id)
   followers.create(followed_id: user_id)
 end
