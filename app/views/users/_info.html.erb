@@ -1,0 +1,51 @@
+<table class='table'>
+  <tr><%= image_tag @user.get_profile_image(100,100) %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= @user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= @user.introduction %></th>
+  </tr>
+  <tr>
+    <th>Follows</th>
+      <td>
+        <%= link_to follows_user_path(@user) do %>
+          <h6><%= @user.followers.count %></h6>
+        <% end %>
+      </td>
+      </tr>
+      <tr>
+        <th>Followers</th>
+        <td>
+          <%= link_to followers_user_path(@user) do %>
+            <h6><%= @user.followeds.count %></h6>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+      <td>
+      <% if current_user != @user %>
+          <% if current_user.following?(@user) %>
+            <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete, class: "btn btn-danger" %>
+          <% else %>
+            <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class:"btn btn-success" %>
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+      <%= link_to message_path(user.id),class: 'btn btn-success' do %>
+        <i class="far fa-comments"></i>
+      <% end %>
+      <% end %>
+      </td>
+      </tr>
+</table>
+
+<div class='row'>
+  <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+    <i class="fas fa-user-cog"></i>
+  <% end %>
+</div>
